@@ -7,4 +7,4 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 
-export default prisma
+module.exports = prisma
