@@ -10,9 +10,28 @@ async function createUserDb(email, username, password) {
     },
   });
 
-  delete user.passwordHash;
-
   return user;
 }
 
-module.exports = { createUserDb };
+async function getUserByIdDb(id) {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: id
+        }
+    })
+
+    return user;
+}
+
+async function getUserByEmailDb(email) {
+        const user = await prisma.user.findUniqueOrThrow({
+            where: {
+                email: email
+            }
+        })
+    
+
+    return user;
+}
+
+module.exports = { createUserDb, getUserByIdDb, getUserByEmailDb };
