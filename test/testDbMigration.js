@@ -1,5 +1,5 @@
-import { exec } from 'node:child_process'
-import { config } from 'dotenv';
+const { exec } = require('node:child_process') 
+const { config } = require('dotenv') ;
 config(); 
 
 try {

@@ -5,6 +5,7 @@ async function create(req, res) {
 
   try {
     const user = await createUserDb(email, username, password);
+    res.status(200).json({user})
   } catch (e) {
     if (e.code === "P2002") {
       res.status(400).json({ error: "User already exists with that username" });

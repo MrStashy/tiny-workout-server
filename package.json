@@ -7,8 +7,13 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
-    "test": "jest -i ./test/api/",
+    "test": "jest -i ./test/",
     "test:migration": "node ./test/testDbMigration.js"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./test/setupTests.js"
+    ]
   },
   "keywords": [],
   "author": "",
