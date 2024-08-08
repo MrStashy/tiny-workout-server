@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,70 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  username     String   @unique
+  email        String   
+  passwordHash String
+  workouts     Workout[]
+  profile      Profile?
+}
+
+model Profile {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  statistics   Statistic[]
+  dob          DateTime
+  userId       Int      @unique
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model Statistic {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  profileId    Int
+  profile      Profile  @relation(fields: [profileId], references: [id]) 
+  name         StatisticName
+}
+
+enum StatisticName {
+  HEIGHT
+  WEIGHT
+}
+
+model Workout {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id]) 
+  userId       Int      
+  email        String   
+  passwordHash String
+  exercises    Exercise[]
+}
+
+model Exercise {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  workoutId    Int      
+  workout      Workout  @relation(fields: [workoutId], references: [id])
+  name         String
+  sets         Set[]
+}
+
+model Set {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  reps         Int
+  weight       Int
+  exerciseId   Int
+  exercise     Exercise @relation(fields: [exerciseId], references: [id])
 }
