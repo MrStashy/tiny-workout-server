@@ -8,6 +8,7 @@ async function create(req, res) {
   const { email, username, password } = req.body;
   try {
     const user = await createUserDb(email, username, password);
+    delete user.passwordHash;
     res.status(200).json({ user });
   } catch (e) {
     if (e.code === "P2002") {
@@ -20,6 +21,7 @@ async function getUserById(req, res) {
   const userId = Number(req.params.id);
   try {
     const user = await getUserByIdDb(userId);
+    delete user.passwordHash;
     res.status(200).json({ user });
   } catch (e) {
     if (e.code === "P2025") {
@@ -32,6 +34,7 @@ async function getUserByEmail(req, res) {
   const { email } = req.body;
   try {
     const user = await getUserByEmailDb(email);
+    delete user.passwordHash;
     res.status(200).json({ user });
   } catch (e) {
     if (e.code === "P2025") {
