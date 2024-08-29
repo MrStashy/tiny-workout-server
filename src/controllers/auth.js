@@ -8,15 +8,11 @@ async function login(req, res) {
 
   try {
     user = await getUserByEmailDb(email);
+    await validateLoginCredentials(user, password);
+    const token = jwt.sign(user.id, process.env.JWT_SECRET);
+    res.status(200).json({ token });
   } catch (e) {
-    if (e.code === "P2025") {
-      res.status(404).json({ error: "No user found with that email" });
-    }
-  }
-
-  if (await validateLoginCredentials(user, password)) {
-    const token = jwt.sign(user.id, process.env.JWT_SECRET)
-    res.status(200).json({ token })
+      res.status(403).json({ error: "Invalid Credentials" });
   }
 }
 
