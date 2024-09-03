@@ -32,7 +32,7 @@ async function getUserById(req, res) {
     if (e.code === "P2025") {
       res.status(404).json({ error: "No user found with that ID" });
     }
-    console.log(e)
+    console.error(e)
   }
 }
 

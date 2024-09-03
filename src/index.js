@@ -1,7 +1,4 @@
 const app = require('./server')
-
-
-
 const port = process.env.EXPRESS_PORT
 
 
