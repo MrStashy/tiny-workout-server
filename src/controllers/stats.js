@@ -8,7 +8,7 @@ async function createStats(req, res) {
 
   try {
     const stats = await createStatsDb(userId, height, weight, dob);
-    res.status(200).json({ profileStats })
+    res.status(200).json({ stats })
   } catch (e) {
     if(e.code === "P2002")
     res.status(403).json({ error: "This user already has stats" });
