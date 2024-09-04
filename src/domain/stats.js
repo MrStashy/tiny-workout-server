@@ -1,17 +1,21 @@
 const prisma = require("../utils/prisma");
-const { getProfileByUserIdDb } = require('./profile')
 
-async function addStatsDb(userId, height, weight) {
-     const { id: profileId } = await getProfileByUserIdDb(userId)
+async function createStatsDb(userId, height, weight, dob) {
+
+    const newProfile = await prisma.profile.create({
+        data: {
+          userId: userId,
+          dob: dob,
+          statistics: {
+            create: [
+              { name: "HEIGHT", value: height },
+              { name: "WEIGHT", value: weight }
+            ]
+          }
+        }
+      });
     
-     const stats = await prisma.statistic.createManyAndReturn({
-        data: [
-            { name: "HEIGHT", value: height, profileId: profileId },
-            { name: "WEIGHT", value: weight, profileId: profileId }
-        ]
-     })
-
-     return stats
+      return newProfile;
 }
 
-module.exports = { addStatsDb }
+module.exports = { createStatsDb }
