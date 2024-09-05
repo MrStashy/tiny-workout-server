@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
 const statsRouter = require('./routes/stats')
+const workoutsRouter = require('./routes/workouts')
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/users', userRouter)
 app.use('/stats', statsRouter)
 app.use('/', authRouter)
+app.use('/workouts', workoutsRouter)
 
 
 module.exports =  app 
