@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 
 const prisma = new PrismaClient();
-const exercises = ["Bench Press", "Squat", "Deadlift"]
+const exercises = ["bench-press", "squat", "deadlift"]
 
 async function seed() {
   const user = await createUser(
@@ -26,9 +26,9 @@ async function seed() {
     const workout = await createWorkout(user.id);
      for (let j = 0; j < exercises.length; j++) {
       const exercise = await createExercise(workout.id, exercises[j])
-      const set = await createSet(exercise.id, 5, 4000);
-      const set2 = await createSet(exercise.id, 5, 4000);
-      const set3 = await createSet(exercise.id, 5, 4000);
+      const set = await createSet(exercise.id, 5, 40000);
+      const set2 = await createSet(exercise.id, 5, 40000);
+      const set3 = await createSet(exercise.id, 5, 40000);
      }
   }
 }

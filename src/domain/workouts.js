@@ -17,4 +17,21 @@ async function getWorkoutsByIdDb (userId) {
     return workouts
 }
 
-module.exports = { getWorkoutsByIdDb }
+async function getNamedExercisesByUserIdDb(userId, exercise) {
+
+const exercises = await prisma.exercise.findMany({
+    where: {
+      name: exercise,
+      workout: {
+        userId: userId
+      },
+    },
+    include: {
+      sets: true
+    },
+  });
+
+  return exercises
+}
+
+module.exports = { getWorkoutsByIdDb, getNamedExercisesByUserIdDb }
