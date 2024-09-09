@@ -7,6 +7,7 @@ const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
 const statsRouter = require('./routes/stats')
 const workoutsRouter = require('./routes/workouts')
+const exerciseRouter = require('./routes/exercises')
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/users', userRouter)
 app.use('/stats', statsRouter)
 app.use('/', authRouter)
 app.use('/workouts', workoutsRouter)
+app.use('/exercises', exerciseRouter)
 
 
 module.exports =  app 

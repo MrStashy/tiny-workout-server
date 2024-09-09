@@ -1,10 +1,10 @@
-const { getWorkoutsByIdDb, getNamedExercisesByUserIdDb } = require("../domain/workouts");
+const { getWorkoutsByUserIdDb, getNamedExercisesByUserIdDb } = require("../domain/workouts");
 
-async function getWorkoutsById(req, res) {
+async function getWorkoutsByUserId(req, res) {
   const userId = Number(req.params.id);
   
   try {
-    const workouts = await getWorkoutsByIdDb(userId);
+    const workouts = await getWorkoutsByUserIdDb(userId);
     res.status(200).json( {workouts} )
   } catch (e) {
     if (e.code === "P2025") {
@@ -14,17 +14,5 @@ async function getWorkoutsById(req, res) {
   }
 }
 
-async function getNamedExercisesByUserId(req, res) {
-    const userId = Number(req.params.id);
-    const exercise = req.params.exercise
-    
-    try {
-        const exercises = await getNamedExercisesByUserIdDb(userId, exercise)
-        res.status(200).json( { exercises } )
-    } catch (e) {
-        console.log(e)
-    }
-   
-  }
 
-module.exports = { getWorkoutsById, getNamedExercisesByUserId };
+module.exports = { getWorkoutsByUserId };

@@ -1,6 +1,6 @@
 const prisma = require('../utils/prisma')
 
-async function getWorkoutsByIdDb (userId) {
+async function getWorkoutsByUserIdDb (userId) {
     const workouts = prisma.workout.findMany({
         where: {
             userId: userId
@@ -17,21 +17,6 @@ async function getWorkoutsByIdDb (userId) {
     return workouts
 }
 
-async function getNamedExercisesByUserIdDb(userId, exercise) {
 
-const exercises = await prisma.exercise.findMany({
-    where: {
-      name: exercise,
-      workout: {
-        userId: userId
-      },
-    },
-    include: {
-      sets: true
-    },
-  });
 
-  return exercises
-}
-
-module.exports = { getWorkoutsByIdDb, getNamedExercisesByUserIdDb }
+module.exports = { getWorkoutsByUserIdDb }
