@@ -22,7 +22,8 @@ async function postNewWorkout(req, res) {
     const newWorkout = await postNewWorkoutDb(workout, id)
     res.status(200).json({ newWorkout })
   } catch (e) {
-    console.log(e)
+    console.error(e)
+    res.status(403).json({ error: "Unable to save workout"})
   }
 
 }
