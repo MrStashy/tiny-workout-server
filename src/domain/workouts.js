@@ -19,7 +19,7 @@ async function getWorkoutsByUserIdDb (userId) {
 
 async function postNewWorkoutDb(workout, userId) {
 
-    const newWorkout = prisma.workout.create({
+    const newWorkout = await prisma.workout.create({
         data: {
             userId: userId,
             exercises: {
@@ -43,10 +43,28 @@ async function postNewWorkoutDb(workout, userId) {
             }
         }
     })
-    
+
     return newWorkout
 }
 
+async function getWorkoutsByUserIdPaginatedDb(userId, pageNo, perPage) {
 
+    const workouts = await prisma.workout.findMany({
+        skip: (pageNo - 1) * perPage,
+        take: perPage,  
+        where: {
+            userId: userId
+        },
+        include: {
+            exercises: {
+                include: {
+                    sets: true
+                }
+            }
+        }
+    })
 
-module.exports = { getWorkoutsByUserIdDb, postNewWorkoutDb }
+    return workouts
+}
+
+module.exports = { getWorkoutsByUserIdDb, postNewWorkoutDb, getWorkoutsByUserIdPaginatedDb }
