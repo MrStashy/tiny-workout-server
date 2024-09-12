@@ -8,7 +8,6 @@ function deleteTables() {
     prisma.statistic.deleteMany(),
     prisma.profile.deleteMany(),
     prisma.user.deleteMany(),
-    
   ];
 
   return prisma.$transaction(tablesToDelete)
