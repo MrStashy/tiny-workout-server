@@ -14,7 +14,7 @@ async function createStats(req, res) {
     res.status(403).json({ error: "This user already has stats" });
     if(e.code === "P2025")
     res.status(403).json({ error: "No user found with that ID" });
-    console.error(e);
+    console.log(e);
   }
 }
 

@@ -49,8 +49,6 @@ async function postNewWorkoutDb(workout, userId) {
 
 async function getWorkoutsByUserIdPaginatedDb(userId, pageNo, perPage) {
 
-    console.log(pageNo)
-    
     const workouts = await prisma.workout.findMany({
         skip: (pageNo - 1) * perPage,
         take: perPage,  
