@@ -18,7 +18,6 @@ async function getNamedExercisesByUserIdDb(userId, exercise) {
     }
 
 async function getAllExercisesByUserIdDb(userId) {
-  console.log(userId)
 
   const exercises = await prisma.exercise.findMany({
     where: {
