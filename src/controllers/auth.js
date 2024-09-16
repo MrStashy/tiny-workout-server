@@ -7,9 +7,15 @@ async function login(req, res) {
 
   try {
     const user = await getUserByEmailDb(email);
-    await validateLoginCredentials(user, password);
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET)
-    res.status(200).json({ token });
+    if (await validateLoginCredentials(user, password)) {
+      const token = jwt.sign(
+        { id: user.id, username: user.username },
+        process.env.JWT_SECRET
+      );
+      res.status(200).json({ token });
+    } else {
+      res.status(403).json({ error: "Invalid Credentials" });
+    }
   } catch (e) {
     res.status(403).json({ error: "Invalid Credentials" });
   }

@@ -5,7 +5,9 @@ async function validateLoginCredentials(user, password) {
         return false
     }
 
-    return await bcrypt.compare(password, user.passwordHash)
+    const result = await bcrypt.compare(password, user.passwordHash)
+    console.log(result)
+    return result
 }   
 
 
