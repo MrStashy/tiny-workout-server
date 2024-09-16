@@ -18,7 +18,7 @@ async function getWorkoutsByUserIdDb (userId) {
 }
 
 async function postNewWorkoutDb(workout, userId) {
-
+    
     const newWorkout = await prisma.workout.create({
         data: {
             userId: userId,

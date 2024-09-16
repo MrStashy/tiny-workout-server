@@ -12,7 +12,7 @@ async function login(req, res) {
         { id: user.id, username: user.username },
         process.env.JWT_SECRET
       );
-      res.status(200).json({ token });
+      return res.status(200).json({ token });
     } else {
       res.status(403).json({ error: "Invalid Credentials" });
     }
