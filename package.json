@@ -7,6 +7,7 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
+    "start": "node src/index.js",
     "test": "jest -i ./test/",
     "test:migration": "node ./test/testDbMigration.js"
   },
